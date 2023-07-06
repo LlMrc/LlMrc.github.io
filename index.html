@@ -17,7 +17,7 @@
     <!-- <base href="/" /> -->
 
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta content="IE=Edge" http-equiv="X-UA-Compatible" />
     <meta name="description" content="A new Flutter project." />
 
@@ -35,22 +35,51 @@
 
     <script>
       // The value below is injected by flutter build, do not touch.
-      var serviceWorkerVersion = "1672577311";
+      var serviceWorkerVersion = "1091954644";
     </script>
     <!-- This script adds the flutter initialization JS code -->
     <script src="flutter.js" defer></script>
   </head>
   <body>
+    <div class="loading" id="loading">
+      <style>
+        body {
+          background-color: #f6f6f6;
+        }
+        .loading {
+          position: absolute;
+          top: calc(50% - 100px);
+          left: calc(50% - 100px);
+          width: 200px;
+          height: 200px;
+          border: 4px solid #8aae92;
+          border-radius: 50%;
+          border-top: 6px solid #ff8e6e;
+          animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+          0% {
+            transform: rotate(0deg);
+          }
+          100% {
+            transform: rotate(360deg);
+          }
+        }
+      </style>
+    </div>
     <script>
       window.addEventListener("load", function (ev) {
         // Download main.dart.js
+        let loading = document.querySelector("#loading");
         _flutter.loader.loadEntrypoint({
           serviceWorker: {
             serviceWorkerVersion: serviceWorkerVersion,
           },
           onEntrypointLoaded: function (engineInitializer) {
             engineInitializer.initializeEngine().then(function (appRunner) {
-              appRunner.runApp();
+              loading.remove();
+              return appRunner.runApp();
             });
           },
         });
